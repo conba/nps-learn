@@ -1,4 +1,6 @@
 ﻿#include "nps.h"
+#include "hdr.h"
+#include "prtc.h"
 #include <stdlib.h>
 
 #if 1

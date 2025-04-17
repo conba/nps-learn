@@ -1,6 +1,9 @@
 ﻿#include "nps.h"
-#include <arpa/inet.h>
+#include "hdr.h"
+#include "prtc.h"
+
 #include <string.h>
+#include <arpa/inet.h>
 
 struct in_addr HOST_IP;
 
@@ -95,5 +98,9 @@ void device_handler(unsigned char *user,
     printf("\n Packet captured:\n");
     printf("Timestamp: %ld.%ld seconds\n", header->ts.tv_sec, header->ts.tv_usec);
     printf("Packet length: %d bytes\n", header->len);
+
+    EthII_Hdr* eth_ii = eth_ii_parse(pkt_data);
+
+    eth_ii_print(eth_ii);
 }
 
