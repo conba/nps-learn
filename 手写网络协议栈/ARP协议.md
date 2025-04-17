@@ -34,8 +34,8 @@ arp -a // 查看本地arp表
 
 # ARP用途和ARP攻击
 
-![](E:\working\github\nps-learn\手写网络协议栈\image\ARP用途.jpg)
+![](image\ARP用途.jpg)
 
 # ARP报文结构
 
-![](E:\working\github\nps-learn\手写网络协议栈\image\ARP报文结构.png)
+![](image\ARP报文结构.png)
