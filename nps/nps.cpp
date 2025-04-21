@@ -28,6 +28,8 @@ int main()
 
     pcap_loop(handle, 5, device_handler, NULL);
 
+    pcap_freealldevs(alldevs);
+
     return 0;
 }
 

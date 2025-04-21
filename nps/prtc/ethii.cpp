@@ -1,4 +1,4 @@
-#include "prtc.h"
+﻿#include "prtc.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,5 +45,14 @@ void eth_ii_print(const EthII_Hdr* eth_ii)
         printf("Unknown");
     }
 
-    printf(":\t %s -> %s\n", get_mac_str(eth_ii->source_mac), get_mac_str(eth_ii->target_mac));
+    char* source_mac = get_mac_str(eth_ii->source_mac);
+    char* target_mac = get_mac_str(eth_ii->target_mac);
+
+    printf(":\t %s -> %s\n", source_mac, target_mac);
+
+    if(source_mac)
+        free(source_mac);
+
+    if(target_mac)
+        free(target_mac);
 }

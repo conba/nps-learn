@@ -2,6 +2,7 @@
 #include "hdr.h"
 #include "prtc.h"
 
+#include <stdlib.h>
 #include <string.h>
 #include <arpa/inet.h>
 
@@ -26,7 +27,7 @@ void devices_info(pcap_if_t *alldevs)
         printf("\nDevice Name: %s\n", device->name);
         if(device->flags & PCAP_IF_LOOPBACK)
         {
-                printf("Loopback enabled\n");
+            printf("Loopback enabled\n");
         }
 
         if(device->description)
@@ -78,9 +79,13 @@ pcap_if_t *device_find(pcap_if_t* alldevs, const char* name)
                 if(addr->addr && addr->addr->sa_family == AF_INET)
                 {
                     struct sockaddr_in* ip_addr = (struct sockaddr_in*)(addr->addr);
-                    char* ip_str = inet_ntoa(ip_addr->sin_addr);
-                    inet_pton(AF_INET, ip_str, &HOST_IP);
-                    printf("host ip is %d\n", HOST_IP);
+//                    char* ip_str = inet_ntoa(ip_addr->sin_addr);
+                    printf("--------%d\n", ip_addr->sin_addr);
+                    char dip_str[17] = {0};
+                    inet_ntop(AF_INET, (in_addr_t*)&(ip_addr->sin_addr), dip_str, 16);
+                    printf("host ip is %s\n", dip_str);
+                    inet_pton(AF_INET, dip_str, &HOST_IP);
+                    printf("--------%d\n", HOST_IP);
                 }
             }
             return device;
@@ -96,11 +101,14 @@ void device_handler(unsigned char *user,
                     const unsigned char *pkt_data)
 {
     printf("\n Packet captured:\n");
-    printf("Timestamp: %ld.%ld seconds\n", header->ts.tv_sec, header->ts.tv_usec);
+    printf("Timestamp: %1d.%1d seconds\n", header->ts.tv_sec, header->ts.tv_usec);
     printf("Packet length: %d bytes\n", header->len);
 
     EthII_Hdr* eth_ii = eth_ii_parse(pkt_data);
 
     eth_ii_print(eth_ii);
+
+    if(eth_ii)
+        free(eth_ii);
 }
 
