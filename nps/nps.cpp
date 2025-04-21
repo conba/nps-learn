@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #if 1
+#define USE_FILTER
 
 int main()
 {
@@ -26,6 +27,29 @@ int main()
         exit(-1);
     }
 
+#ifdef USE_FILTER
+
+    // set filter
+    struct bpf_program fp;
+    char filter_exp[] = "arp";
+    bpf_u_int32 net = 0;
+
+    // complie filter
+    if(pcap_compile(handle, &fp, filter_exp, 0, net) == -1)
+    {
+        printf("Couldn't parse filter %s: %s\n", filter_exp, pcap_geterr(handle));
+        return 1;
+    }
+
+    if(pcap_setfilter(handle, &fp) == -1)
+    {
+        fprintf(stderr, "Couldn't install filter %s: %s\n", filter_exp, pcap_geterr(handle));
+        exit(-1);
+    }
+
+#endif
+
+    // start
     pcap_loop(handle, 5, device_handler, NULL);
 
     pcap_freealldevs(alldevs);

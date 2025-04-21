@@ -13,7 +13,8 @@ SOURCES += \
         main.cpp \
     nps.cpp \
     device.cpp \
-    prtc/ethii.cpp
+    prtc/ethii.cpp \
+    prtc/arp.cpp
 
 HEADERS += \
     inc/nps.h \
