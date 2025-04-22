@@ -50,7 +50,7 @@ int main()
 #endif
 
     // start
-    pcap_loop(handle, 5, device_handler, NULL);
+    pcap_loop(handle, 10, device_handler, NULL);
 
     pcap_freealldevs(alldevs);
 

@@ -108,15 +108,18 @@ void device_handler(unsigned char *user,
 
     eth_ii_print(eth_ii);
 
-    data += sizeof(EthII_Hdr);
+    pkt_data += sizeof(EthII_Hdr);
 
-    switch (eth_ii->type) {
+    Arp_Hdr* arp = nullptr;
+
+    switch (eth_ii->type)
+    {
     case ETH_II_TYPE_ARP:
-        Arp_Hdr* arp = arp_parse(data);
+        arp = arp_parse(pkt_data);
         arp_print(arp);
         break;
     default:
-        printf("Unknown packet type: %d\n", eth_ii->type);
+//        printf("Unknown packet type: %d\n", eth_ii->type);
         break;
     }
 

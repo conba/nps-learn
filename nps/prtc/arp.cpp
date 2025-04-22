@@ -1,5 +1,18 @@
 #include "prtc.h"
+#include "arpa/inet.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* get_ip_str(const uint32_t tpa)
+{
+    char* ip = (char*)malloc(17);
+
+    inet_ntop(AF_INET, (in_addr_t*)&tpa, ip, 16);
+
+    return ip;
+}
 
 Arp_Hdr* arp_parse(const unsigned char *data)
 {
@@ -11,8 +24,8 @@ Arp_Hdr* arp_parse(const unsigned char *data)
     arp_hdr->h_type = ntohs(arp_hdr->h_type);
     arp_hdr->p_type = ntohs(arp_hdr->p_type);
     arp_hdr->operate = ntohs(arp_hdr->operate);
-    arp_hdr->spa = ntohl(arp_hdr->spa);
-    arp_hdr->tpa = ntohl(arp_hdr->tpa);
+//    arp_hdr->spa = ntohl(arp_hdr->spa);
+//    arp_hdr->tpa = ntohl(arp_hdr->tpa);
 
     return arp_hdr;
 }
@@ -21,6 +34,11 @@ void arp_print(const Arp_Hdr *arp)
 {
     if(arp->p_type == ETH_II_TYPE_IPV4)
     {
-        printf("\t\t who has %s, tell %s\n", get_ip_str(arp->tpa), get_ip_str(arp->spa));
+        char* target_ip = get_ip_str(arp->tpa);
+        char* source_ip = get_ip_str(arp->spa);
+        printf("\t\t who has %s, tell %s\n", target_ip, source_ip);
+
+        free(target_ip);
+        free(source_ip);
     }
 }
