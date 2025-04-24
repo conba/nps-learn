@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #if 1
-#define USE_FILTER
+//#define USE_FILTER
 
 int main()
 {
@@ -50,7 +50,23 @@ int main()
 #endif
 
     // start
-    pcap_loop(handle, 10, device_handler, NULL);
+//    pcap_loop(handle, 10, device_handler, NULL);
+
+
+
+    for (int i = 0; i < 10; i++)
+    {
+        arp_send(handle, "10.110.9.55", ARP_REQUESE);
+    }
+
+
+
+
+
+
+
+
+
 
     pcap_freealldevs(alldevs);
 

@@ -42,3 +42,53 @@ void arp_print(const Arp_Hdr *arp)
         free(source_ip);
     }
 }
+
+
+extern struct in_addr HOST_IP;
+
+int arp_send(pcap_t* handle, char* tpa, uint8_t type)
+{
+    EthII_Hdr eth_ii_hdr = {.type = htons(ETH_II_TYPE_ARP)};
+    host_mac(eth_ii_hdr.source_mac);
+    memset(eth_ii_hdr.target_mac, 0xFF, ETH_II_MAC_LEN);
+    Arp_Hdr arp_hdr = {
+        .h_type = htons(1),
+        .p_type = htons(ETH_II_TYPE_IPV4),
+        .h_len = 6,
+        .p_len = 4,
+        .operate = htons(1),
+        .spa = HOST_IP.s_addr
+    };
+
+    host_mac(arp_hdr.sha);
+    int pl = 0;  // 数据包的长度
+    if(type == ARP_GRATUITOUS)
+    {
+        pl = 60;
+        memset(arp_hdr.tha, 0xFF, ETH_II_MAC_LEN);
+        arp_hdr.tpa = arp_hdr.spa;
+    }
+    else
+    {
+        pl = sizeof(EthII_Hdr) + sizeof(Arp_Hdr);
+        memset(arp_hdr.tha, 0x00, ETH_II_MAC_LEN);
+        arp_hdr.tpa = from_ip_str(tpa);
+    }
+
+    uint8_t data[pl];
+    memset(data, 0x00, pl);
+    memcpy(data, &eth_ii_hdr, sizeof(EthII_Hdr));
+    memcpy(data + sizeof(EthII_Hdr), &arp_hdr, sizeof(Arp_Hdr));
+
+    if(pcap_sendpacket(handle, data, pl) != 0)
+    {
+        fprintf(stderr, "Error sending packet: %s\n", pcap_geterr(handle));
+    }
+    else
+    {
+        printf("send successfuly. \n");
+    }
+
+    return 0;
+}
+
