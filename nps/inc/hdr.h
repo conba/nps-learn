@@ -31,4 +31,29 @@ typedef struct __attribute__((__packed__))
 
 } Arp_Hdr;
 
+// IP Header
+
+typedef struct __attribute__((__packed__))
+{
+    uint8_t ihl:4;
+    uint8_t version:4;
+    uint8_t tos;
+    uint8_t len;
+    uint16_t identification;
+    union
+    {
+        uint16_t v;
+        struct
+        {
+            uint16_t fo:13;
+            uint16_t flag:3;
+        };
+    }ff;
+    uint8_t tt1;
+    uint8_t protocol;
+    uint16_t checksum;
+    uint32_t src;
+    uint32_t dst;
+} IP_Hdr;
+
 #endif // HDR_H
