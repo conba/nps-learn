@@ -2,7 +2,7 @@
 
 ARP（Address Resolution Protocol, 地址解析协议）是一个网络层协议，用于在局域网中（LAN）中**通过已知的IP地址查找对应的MAC地址**（物理地址）。它使得计算机可以在同一个子网内通过IP地址找到目标设备的硬件地址，从而实现数据包的正确传输。
 
-![](E:\working\github\nps-learn\手写网络协议栈\image\ARP协议.svg)
+![](image\ARP协议.svg)
 
 ARP（Address Resolution Protocol）数据包格式定义了ARP协议如何在网络中传输请求和响应信息。ARP数据包的格式被划分为固定长度字段，每个字段有特定的作用。下面是ARP数据包的格式详细。
 

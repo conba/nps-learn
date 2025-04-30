@@ -75,11 +75,11 @@ IPv4地址结构可以分为三个部分：
 
 ## IP报文结构
 
-![](E:\working\github\nps-learn\手写网络协议栈\image\ipv4报文.png)
+![](image\ipv4报文.png)
 
 **IP数据包要求以4字节对齐**
 
-![](E:\working\github\nps-learn\手写网络协议栈\image\IPv4协议.svg)
+![](image\IPv4协议.svg)
 
 ## 1. IPv4数据包结构
 
