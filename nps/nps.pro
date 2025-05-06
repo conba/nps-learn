@@ -14,7 +14,8 @@ SOURCES += \
     nps.cpp \
     device.cpp \
     prtc/ethii.cpp \
-    prtc/arp.cpp
+    prtc/arp.cpp \
+    prtc/ip.cpp
 
 HEADERS += \
     inc/nps.h \

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #if 1
-//#define USE_FILTER
+#define USE_FILTER
 
 int main()
 {
@@ -31,7 +31,7 @@ int main()
 
     // set filter
     struct bpf_program fp;
-    char filter_exp[] = "arp";
+    char filter_exp[] = "arp or ip";
     bpf_u_int32 net = 0;
 
     // complie filter

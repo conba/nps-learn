@@ -49,4 +49,9 @@ void arp_print(const Arp_Hdr* apr);
 
 int arp_send(pcap_t* handle, char* tpa, uint8_t type);
 
+
+IP_Hdr* ip_parse(const unsigned char* data);
+
+void ip_print(const IP_Hdr* ip);
+
 #endif // PRTC_H

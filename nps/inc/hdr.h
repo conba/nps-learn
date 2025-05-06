@@ -35,8 +35,8 @@ typedef struct __attribute__((__packed__))
 
 typedef struct __attribute__((__packed__))
 {
-    uint8_t ihl:4;
-    uint8_t version:4;
+    uint8_t ihl:4;     // 因为字节序原因放在前面
+    uint8_t version:4; // 因为字节序原因放在后面
     uint8_t tos;
     uint8_t len;
     uint16_t identification;
