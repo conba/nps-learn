@@ -49,7 +49,7 @@ typedef struct __attribute__((__packed__))
             uint16_t flag:3;
         };
     }ff;
-    uint8_t tt1;
+    uint8_t ttl;
     uint8_t protocol;
     uint16_t checksum;
     uint32_t src;

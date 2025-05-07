@@ -35,6 +35,8 @@ static int host_mac(uint8_t *mac_val)
     return 0;
 }
 
+char* get_ip_str(const uint32_t tpa);
+
 EthII_Hdr* eth_ii_parse(const unsigned char* data);
 
 void eth_ii_print(const EthII_Hdr* eth_ii);
@@ -49,6 +51,8 @@ void arp_print(const Arp_Hdr* apr);
 
 int arp_send(pcap_t* handle, char* tpa, uint8_t type);
 
+#define IP_TOP_TCP      6
+#define IP_TOP_UDP      17
 
 IP_Hdr* ip_parse(const unsigned char* data);
 

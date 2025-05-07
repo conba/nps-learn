@@ -111,6 +111,7 @@ void device_handler(unsigned char *user,
     pkt_data += sizeof(EthII_Hdr);
 
     Arp_Hdr* arp = nullptr;
+    IP_Hdr* ipv4 = nullptr;
 
     switch (eth_ii->type)
     {
@@ -118,6 +119,9 @@ void device_handler(unsigned char *user,
         arp = arp_parse(pkt_data);
         arp_print(arp);
         break;
+    case ETH_II_TYPE_IPV4:
+        ipv4 = ip_parse(pkt_data);
+        ip_print(ipv4);
     default:
 //        printf("Unknown packet type: %d\n", eth_ii->type);
         break;

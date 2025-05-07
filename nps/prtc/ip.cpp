@@ -15,8 +15,8 @@ IP_Hdr* ip_parse(const unsigned char* data)
     ip_hdr->identification = ntohs(ip_hdr->identification);
     ip_hdr->ff.v = ntohs(ip_hdr->ff.v);
     ip_hdr->checksum = ntohs(ip_hdr->checksum);
-    ip_hdr->src = ntohl(ip_hdr->src);
-    ip_hdr->dst = ntohl(ip_hdr->dst);;
+//    ip_hdr->src = ntohl(ip_hdr->src);
+//    ip_hdr->dst = ntohl(ip_hdr->dst);
 
     return ip_hdr;
 }
