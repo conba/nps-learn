@@ -6,3 +6,7 @@
 原链接：
 
 https://space.bilibili.com/486263418/lists/4358014?type=season
+
+运行环境
+
+kylinv10 或 uos1070

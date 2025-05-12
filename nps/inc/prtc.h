@@ -5,6 +5,7 @@
 
 #include <arpa/inet.h>
 #include <pcap.h>
+#include <iostream>
 
 #define HOSTMAC "F8:E4:3B:1B:9C:E0"
 
@@ -72,13 +73,16 @@ void eth_ii_print(const EthII_Hdr* eth_ii);
 #define ARP_GRATUITOUS  1
 #define ARP_REQUESE     2
 
-
 Arp_Hdr* arp_parse(const unsigned char* data);
 
 void arp_print(const Arp_Hdr* apr);
 
 int arp_send(pcap_t* handle, char* tpa, uint8_t type);
 
+
+#define IPv4_VERSION    4
+#define IPv6_VERSION    6
+#define IP_TOP_ICMP     1
 #define IP_TOP_TCP      6
 #define IP_TOP_UDP      17
 
@@ -87,5 +91,10 @@ IP_Hdr* ip_parse(const unsigned char* data);
 void ip_print(const IP_Hdr* ip);
 
 bool ip_checksum(IP_Hdr* ip_hdr);
+
+Icmp_Hdr* icmp_parse(const unsigned char* data, uint16_t len);
+bool icmp_checksum(Icmp_Hdr* icmp_hdr, uint16_t len);
+void icmp_print(const Icmp_Hdr* icmp);
+
 
 #endif // PRTC_H

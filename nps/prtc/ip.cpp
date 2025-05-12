@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+Icmp_Hdr* icmp_hdr = nullptr;
+
 IP_Hdr* ip_parse(const unsigned char* data)
 {
     IP_Hdr* ip_hdr = (IP_Hdr*)malloc(sizeof(IP_Hdr));
@@ -20,6 +22,18 @@ IP_Hdr* ip_parse(const unsigned char* data)
 
 //    ip_hdr->src = ntohl(ip_hdr->src);
 //    ip_hdr->dst = ntohl(ip_hdr->dst);
+
+    if(ip_hdr->protocol == IP_TOP_ICMP)
+    {
+        std::cout << "icmp ---------------" << std::endl;
+        uint16_t hl = ip_hdr->ihl * 4;
+        // TODO:
+        icmp_hdr = icmp_parse(data + hl, ip_hdr->len - hl);
+        if(icmp_hdr != nullptr)
+        {
+            icmp_print(icmp_hdr);
+        }
+    }
 
     return ip_hdr;
 }
