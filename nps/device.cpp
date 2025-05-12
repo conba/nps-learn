@@ -121,7 +121,8 @@ void device_handler(unsigned char *user,
         break;
     case ETH_II_TYPE_IPV4:
         ipv4 = ip_parse(pkt_data);
-        ip_print(ipv4);
+        if(ipv4)
+            ip_print(ipv4);
     default:
 //        printf("Unknown packet type: %d\n", eth_ii->type);
         break;
