@@ -21,7 +21,8 @@ SOURCES += \
 HEADERS += \
     inc/nps.h \
     inc/hdr.h \
-    inc/prtc.h
+    inc/prtc.h \
+    inc/stack.h
 
 DISTFILES += \
     ../手写网络协议栈/ARP协议.md \
