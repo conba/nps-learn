@@ -16,7 +16,8 @@ SOURCES += \
     prtc/ethii.cpp \
     prtc/arp.cpp \
     prtc/icmp.cpp \
-    prtc/ip.cpp
+    prtc/ip.cpp \
+    prtc/udp.cpp
 
 HEADERS += \
     inc/nps.h \
