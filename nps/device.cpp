@@ -2,6 +2,7 @@
 #include "hdr.h"
 #include "prtc.h"
 
+#include "stack.h"
 #include <stdlib.h>
 #include <string.h>
 #include <arpa/inet.h>
@@ -95,41 +96,67 @@ pcap_if_t *device_find(pcap_if_t* alldevs, const char* name)
     return NULL;
 }
 
+int top_type;
 
 void device_handler(unsigned char *user,
                     const struct pcap_pkthdr *header,
                     const unsigned char *pkt_data)
 {
-    printf("\n Packet captured:\n");
-    printf("Timestamp: %1d.%1d seconds\n", header->ts.tv_sec, header->ts.tv_usec);
-    printf("Packet length: %d bytes\n", header->len);
-
-    EthII_Hdr* eth_ii = eth_ii_parse(pkt_data);
-
-    eth_ii_print(eth_ii);
-
-    pkt_data += sizeof(EthII_Hdr);
-
-    Arp_Hdr* arp = nullptr;
-    IP_Hdr* ipv4 = nullptr;
-
-    switch (eth_ii->type)
+    do
     {
-    case ETH_II_TYPE_ARP:
-        arp = arp_parse(pkt_data);
-        arp_print(arp);
-        break;
-    case ETH_II_TYPE_IPV4:
-        ipv4 = ip_parse(pkt_data);
-        if(ipv4)
-            ip_print(ipv4);
-    default:
-//        printf("Unknown packet type: %d\n", eth_ii->type);
-        break;
-    }
+        switch (top_type)
+        {
+            return;
+        case SP_ETH:
+            {
+            // 解析以太网帧头
+                EthII_Hdr* eth_ii = eth_ii_parse(data);
+                if(eth_ii->type == ETH_II_TYPE_ARP)
+                    top_type = SP_ARP;
+                else if(eth_ii->type == ETH_II_TYPE_IPV4)
+                    top_type = SP_IPv4;
+                else if (eth_ii->type == ETH_II_TYPE_IPV6)
+                    top_type = SP_IPv6;
+                else
+                    return;
+            break;
+            }
+        default:
+            break;
+        }
+    }while (false);
 
 
-    if(eth_ii)
-        free(eth_ii);
+//    printf("\n Packet captured:\n");
+//    printf("Timestamp: %1d.%1d seconds\n", header->ts.tv_sec, header->ts.tv_usec);
+//    printf("Packet length: %d bytes\n", header->len);
+
+//    EthII_Hdr* eth_ii = eth_ii_parse(pkt_data);
+
+//    eth_ii_print(eth_ii);
+
+//    pkt_data += sizeof(EthII_Hdr);
+
+//    Arp_Hdr* arp = nullptr;
+//    IP_Hdr* ipv4 = nullptr;
+
+//    switch (eth_ii->type)
+//    {
+//    case ETH_II_TYPE_ARP:
+//        arp = arp_parse(pkt_data);
+//        arp_print(arp);
+//        break;
+//    case ETH_II_TYPE_IPV4:
+//        ipv4 = ip_parse(pkt_data);
+//        if(ipv4)
+//            ip_print(ipv4);
+//    default:
+////        printf("Unknown packet type: %d\n", eth_ii->type);
+//        break;
+//    }
+
+
+//    if(eth_ii)
+//        free(eth_ii);
 }
 

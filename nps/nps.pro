@@ -17,6 +17,7 @@ SOURCES += \
     prtc/arp.cpp \
     prtc/icmp.cpp \
     prtc/ip.cpp \
+    prtc/tcp.cpp \
     prtc/udp.cpp
 
 HEADERS += \

@@ -1,4 +1,4 @@
-#ifndef PRTC_H
+﻿#ifndef PRTC_H
 #define PRTC_H
 
 #include "hdr.h"
@@ -100,5 +100,9 @@ Udp_Hdr* udp_parse(const unsigned char* data, uint16_t len);
 bool udp_checksum(Udp_Hdr* udp_hdr, uint16_t len);
 void udp_print(const Udp_Hdr* udp);
 
+
+Tcp_Hdr* tcp_parse(const unsigned char* data);
+bool tcp_checksum(Tcp_Hdr* tcp_hdr);
+void tcp_print(Tcp_Hdr* tcp);
 
 #endif // PRTC_H

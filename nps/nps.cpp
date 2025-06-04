@@ -12,7 +12,7 @@ int main()
     char errbuf[PCAP_ERRBUF_SIZE];
 
     // 获取网卡
-    pcap_if_t* device = device_find(alldevs, "ens33");
+    pcap_if_t* device = device_find(alldevs, "ens36");
     if(device == NULL)
     {
         fprintf(stderr, "not device found\n");
@@ -50,14 +50,14 @@ int main()
 #endif
 
     // start
-//    pcap_loop(handle, 10, device_handler, NULL);
+    pcap_loop(handle, 10, device_handler, NULL);
 
 
 
-    for (int i = 0; i < 10; i++)
-    {
-        arp_send(handle, "10.110.9.55", ARP_REQUESE);
-    }
+//    for (int i = 0; i < 10; i++)
+//    {
+//        arp_send(handle, "10.110.9.55", ARP_REQUESE);
+//    }
 
 
 
